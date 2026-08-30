@@ -3,10 +3,11 @@ services:
     image: mysql:8
     container_name: ecommerce_db
     environment:
-      MYSQL_ROOT_PASSWORD: root123
-      MYSQL_DATABASE: ecommerce_dev
+      # 变量插值：本地用默认值，其他环境用 --env-file 或环境变量覆盖
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root123}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ecommerce_dev}
     ports:
-      - "3306:3306"
+      - "${MYSQL_PORT:-3306}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
 
